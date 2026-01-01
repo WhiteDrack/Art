@@ -1,78 +1,148 @@
- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shri Krishna's Teachings from Bhagavad Gita</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: white;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .verse {
-            font-style: italic;
-            color: #555;
-            border-left: 3px solid #FF8C00;
-            padding-left: 15px;
-            margin: 20px 0;
-        }
-        
-        .teaching-point {
-            background-color: #f9f4e8;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-        }
-        
-        .krishna-quote {
-            font-weight: bold;
-            color: #FF4500;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jump Pro - Ultimate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <article>
-        <h2>Shri Krishna's Essential Teachings from Bhagavad Gita</h2>
-        
-        <div class="teaching-point">
-            <p><span class="krishna-quote">"This life is like a Dharmakshetra or Kurukshetra"</span> - where man should perform his duties and not just do Puja-Paath or Bhajan.</p>
+
+    <div id="loginPage" class="page active">
+        <div class="card" style="margin-top: 100px;">
+            <i class="fas fa-rocket" style="font-size: 50px; color: var(--primary);"></i>
+            <h2>Jump Pro</h2>
+            <button onclick="login()" class="btn-main" style="margin-top:20px; background:#fff;">Continue with Google</button>
         </div>
-        
-        <div class="teaching-point">
-            <p><span class="krishna-quote">"The human body is also a Kurukshetra"</span> - where divine and demonic resolves are at war every moment.</p>
+    </div>
+
+    <div id="jumpPage" class="page">
+        <div class="card">
+            
+            <button onclick="openSearchModal()" class="search-icon-btn">
+                <i class="fas fa-search"></i>
+            </button>
+
+            <div id="seasonDisplay" class="season-badge">Loading Season...</div>
+            <div id="roundDisplay" style="color:#8b949e; font-size:12px; margin-bottom:15px;">Loading...</div>
+            
+            <div id="height">0.00</div>
+            <div style="color: #484f58; font-size: 12px;">METERS (INSTANT)</div>
+            <div id="status" style="margin: 20px 0; color: #e3b341; font-weight: bold;">READY</div>
+            
+            <div style="background:#0d1117; padding:10px; border-radius:10px; margin-bottom:20px;">
+                <div style="font-size:12px; color:#8b949e;">SEASON BEST</div>
+                <div id="todayBest" style="font-size:20px; font-weight:bold; color:#fff;">0.00m</div>
+            </div>
+            
+            <button id="startBtn" class="btn-main">ACTIVATE SENSOR</button>
         </div>
+    </div>
+
+    <div id="leaderboardPage" class="page">
+        <h2 style="margin-bottom: 5px;"><i class="fas fa-trophy"></i> Global Rank</h2>
+        <div style="font-size: 12px; color: #8b949e; margin-bottom: 15px;" id="lbSeasonName">Current Month</div>
         
-        <div class="teaching-point">
-            <p><span class="krishna-quote">"The war of Mahabharata was a real historical event"</span> - which was used by Ved-Vyas to show man the true form of Dharma.</p>
+        <p style="font-size: 10px; color: #555; margin-top: 5px;">(Tap a player to view profile)</p>
+        <div id="lbList" class="lb-container"><p style="color:#555">Waiting for data...</p></div>
+    </div>
+
+    <div id="profilePage" class="page">
+        <div class="card">
+            <button onclick="openMailbox()" class="inbox-icon-btn">
+                <i class="fas fa-envelope"></i>
+                <span id="mailCount" class="badge" style="display:none;">0</span>
+            </button>
+
+            <div class="profile-img-container" id="myProfileContainer">
+                <img id="pImg" style="width:80px; height:80px; border-radius:50%; border:2px solid var(--primary); object-fit:cover;" src="">
+            </div>
+            
+            <h2 id="pName" style="margin: 10px 0;">Name</h2>
+            <div class="uid-box">ID: <span id="pUid" style="color:#fff; font-weight:bold;">---</span></div>
+            
+            <div style="margin-top: 20px; background: #0d1117; padding: 20px; border-radius: 15px;">
+                <span style="font-size:11px; color:#555;">SEASON BEST SCORE</span><br>
+                <span id="pTotal" style="font-size:32px; font-weight:800; color:var(--primary);">0.00m</span>
+            </div>
+            
+            <div style="margin-top: 30px; width: 100%;">
+                <h3 style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #30363d; padding-bottom: 10px;">
+                    <i class="fas fa-medal" style="color: #e3b341;"></i> Trophy Case
+                </h3>
+                <div id="awardsList" class="awards-grid">
+                    <p style="grid-column: span 3; color: #555; font-size: 12px;">No awards earned yet.</p>
+                </div>
+            </div>
+            
+            <button onclick="logout()" style="margin-top:20px; background:none; border:none; color:#f85149; cursor:pointer;">Logout</button>
         </div>
-        
-        <div class="teaching-point">
-            <p><span class="krishna-quote">"Shri Krishna asked Arjuna to stand the chariot between the two armies"</span> - so that Arjuna could see who all were involved in the war.</p>
+    </div>
+
+    <div id="publicProfilePage" class="page" style="z-index: 2000;">
+        <div class="card">
+            <div style="width:100%; display:flex; justify-content:flex-start;">
+                <button onclick="closePublicProfile()" style="background:none; border:none; color:#8b949e; cursor:pointer; display:flex; align-items:center; gap:5px; font-size:14px;">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+            
+            <div class="profile-img-container" id="publicProfileContainer">
+                <img id="ppImg" style="width:80px; height:80px; border-radius:50%; border:2px solid #58a6ff; object-fit:cover;" src="">
+            </div>
+            
+            <h2 id="ppName" style="margin: 10px 0;">Player</h2>
+            <div class="uid-box">ID: <span id="ppUid" style="color:#fff; font-weight:bold;">---</span></div>
+            
+            <div style="margin-top: 20px; background: #0d1117; padding: 20px; border-radius: 15px; border: 1px solid #30363d;">
+                <span style="font-size:11px; color:#555;">SEASON BEST SCORE</span><br>
+                <span id="ppTotal" style="font-size:32px; font-weight:800; color:#58a6ff;">0.00m</span>
+            </div>
+
+            <div style="margin-top: 30px; width: 100%;">
+                <h3 style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #30363d; padding-bottom: 10px;">
+                    <i class="fas fa-trophy" style="color: #58a6ff;"></i> Awards
+                </h3>
+                <div id="ppAwardsList" class="awards-grid">
+                    <p style="grid-column: span 3; color: #555; font-size: 12px;">Loading awards...</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="teaching-point">
-            <p>Arjuna was filled with great compassion on seeing his relatives in the war and decided not to fight.</p>
-            <p>Arjuna's body started trembling, his face became dry, the Gandiva bow started slipping from his hand, and his mind started getting confused.</p>
+    </div>
+    <div> <a style=" width: 150px; background-color: #1CA953; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; border-radius:3.229px; " href='https://u.payu.in/WrxiPf1IMGiv' > Buy Now </a> </div>
+
+    <div id="searchModal" class="modal-overlay" style="display:none;">
+        <div class="card modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3><i class="fas fa-search"></i> Search Player</h3>
+                <button onclick="closeSearchModal()" style="background:none; border:none; color:#8b949e; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <div style="padding-bottom:15px;">
+                <input type="number" id="modalSearchInput" class="search-input" placeholder="Enter Player ID (e.g. 849201)" style="width:100%; box-sizing:border-box; margin-bottom:10px;">
+                <button onclick="searchPlayer()" class="search-btn" style="width:100%;">FIND PLAYER</button>
+            </div>
         </div>
-        
-        <div class="teaching-point">
-            <p>Arjuna said:</p>
-            <ul>
-                <li>He did not desire victory, kingdom or happiness</li>
-                <li>Those for whom he wanted all this were all standing ready to sacrifice their lives and wealth in the war</li>
-                <li>Seeing his Gurus, fathers, sons, grandfathers, uncles, fathers-in-law, grandsons and friends present in the war, Arjuna did not wish to kill them</li>
-                <li>Even for the kingdom of Trilok he did not wish to kill them, so how could he kill them for the earth</li>
-                <li>We will not get any happiness by killing the Kauravas, because by killing these tyrants we will incur sins</li>
-            </ul>
-            <p class="verse">"न काङ्क्षे विजयं कृष्ण न च राज्यं सुखानि च"<br>
-            "I desire not victory, O Krishna, nor kingdom, nor pleasures" (Bhagavad Gita 1.31)</p>
+    </div>
+
+    <div id="mailModal" class="modal-overlay" style="display:none;">
+        <div class="card modal-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3><i class="fas fa-gift"></i> Inbox</h3>
+                <button onclick="closeMailbox()" style="background:none; border:none; color:#8b949e; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <div id="mailList" style="text-align:left; max-height:300px; overflow-y:auto;">
+                <p style="color:#555; text-align:center;">Loading messages...</p>
+            </div>
         </div>
-    </article>
+    </div>
+
+    <nav class="nav-bar" id="bottomNav" style="display:none;">
+        <button class="nav-item active-nav" onclick="navTo('jumpPage', this)"><i class="fas fa-bolt"></i><span>JUMP</span></button>
+        <button class="nav-item" onclick="navTo('leaderboardPage', this)"><i class="fas fa-chart-line"></i><span>RANK</span></button>
+        <button class="nav-item" onclick="navTo('profilePage', this)"><i class="fas fa-user-circle"></i><span>PROFILE</span></button>
+    </nav>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
